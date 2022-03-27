@@ -1,13 +1,11 @@
 <?php
 session_start();
-
 ?>
 </doctype html>
 <html>
 <head>
 <title>WooTube | Movie Library | All your favourite movies at one place
 </title>
-<link rel="icon" type="image/jpg" href="w.jpg" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -70,19 +68,6 @@ header {
 	margin-right : 3rem ;
 	
 }
-.rightt {
-	margin-right : 3rem ;
-	color : white ;
-	display : flex ;
-	align-items : center ;
-}
-#logout {
-	cursor : pointer ;
-	animation : margin 2s ;
-}
-#logout:hover {
-	margin : 0 0.5rem 0 0;
-}
 #error {
 	color : red ;
 	font-size : 1.6rem ;
@@ -102,7 +87,6 @@ main {
 	margin-right : 10% ;
 	border : 1px solid white ;
 	position : absolute ;
-	
 }
 #language {
 	background : rgba(0,0,0,0.8) ;
@@ -201,35 +185,19 @@ main {
 	width :27rem ;
 	height :48rem ;
 }
-
-@media screen and (max-width: 991px) {
-main {
-	margin : 5% 0%;
-}
-#cardlist {
-	justify-content : center;
-}
-#movie {
-	width : 100% ;
-}
-}
 </style>
 <body>
 <?php 
-if(isset($_SESSION["id"])) {
+if($_SESSION["id"]) {
 ?>
 <header>
 <div id="logo">Woo<div style="color:red;text-decoration : underline solid white;">Tube</div></div>
-<script>
-$("#logo").click(function() {
-	window.location="home.php";
-});
-</script>
 <form method="get" id="searchform">
 <input type="search" id="searchbox" name="t" placeholder="Search..">
 <img src="srchicon.png" alt="Search your Favourite Movies" id="searchicon">
 </form>
-<div class="rightt"><img src="avatar1.jpg" width="50rem" id="profile"><img src="logout.png" width="33rem" height="33rem" id="logout"></div>
+<div ><img src="avatar1.jpg" width="50rem" id="profile">Hello<?php echo $_SESSION["fname"]; ?></div>
+<div class="rightt"><?php echo $_SESSION["fname"]; ?><img src="avatar1.jpg" width="50rem" id="profile">&nbsp<img src="logout.png" width="33rem" height="33rem" id="logout"></div>
 </header>
 <script>
 var movie;
@@ -260,19 +228,16 @@ $(document).ready(function() {
 				$("#language").text(movie.Language);
 				$("#error").text(movie.Error);
 				$("#response").text(movie.Response);
-				$("#image").text(movie.Poster);		$("#poster").css("background","url("+movie.Poster+") no-repeat center");
+				$("#poster").css("background","url("+movie.Poster+") no-repeat center");
 				$("#movie").slideDown();
 				}
 			}
-
-});
-console.log(formdata);	
+});	
 });
 });
 </script>
 <section id="movie">
 <section id="poster">
-<div id="image" style="visibility:hidden"></div>
 <div id="language">Language</div>
 </section>
 <section id="moviedetail">
@@ -290,64 +255,39 @@ console.log(formdata);
 <label>Plot : &nbsp</label><span id="plot">Plot</span>
 </br></br>
 </section>
-<center ><button class="clk" style="margin-top:2rem;" id="addtoplaylist">Add to Playlist<sup>+</sup</button></center>
+<center ><button class="clk" style="margin-top:2rem;">Add to Playlist<sup>+</sup</button></center>
 </section>
 </section>
-
-<script>
-$(document).ready(function () { 
-	$("#addtoplaylist").click(function () { 
-		event.preventDefault();
-		var playlist="action=addtoplaylist&image="+$('#image').text()+"&movietitle="+$('#title').text()+"&year="+$('#year').text()+"&genre="+$('#genre').text()+"&released="+$('#released').text()+"&duration="+$('#runtime').text()+"&userid="+<?php echo $_SESSION['id']?>;
-		$.ajax({
-			type: "get",
-			url: "process.php/?",
-			data: playlist,
-			success: function(response){
-				alert(response);
-				$('#movie').slideToggle();
-console.log(playlist); 
-		}
-});
-});
-});
-</script>
-
 <script>
 $("#movie").hide(0);
 </script>
 <center id="error"></center>
 <main>
 <div style="font-size:3rem">Playlist</div>
-
 <section id="cardlist">
-<?php
-$con = mysqli_connect('localhost:3302','root','','wootube');
-$id = $_SESSION["id"] ;
-$getplaylist = "select * from playlist where userid = '$id'";
-$playlist = mysqli_query($con,$getplaylist);  
-
-if (mysqli_num_rows($playlist) > 0) {
-     while($row= mysqli_fetch_assoc($playlist)) {
-echo '
 <section class="card">
 <div class="cardimg">
-<img src="'.$row["image"].'" class="poster">
+<img src="poster.jpg" class="poster">
 </div>
 <section class="moviedetail">
-<div class="movietitle">'.$row['movietitle'].'(<i>'.$row['year'].'</i>)</div>
-<div>'.$row['genre'].'</div>
-Released : <u>'.$row['released'].'</u></br>
-Duration : '.$row['duration'].' </br>
+<div class="movietitle">Movie (<i>Year</i>)</div>
+<div>Genre</div>
+Released : <u>Released</u></br>
+Duration : duration </br>
 </section>
 </section>
-';
-
-}
-}
-mysqli_close($con);
-?>
-<section id="cardadd" onclick='$("#searchbox").focus();'>
+<section class="card">
+<div class="cardimg">
+<img src="poster.jpg" class="poster">
+</div>
+<section class="moviedetail">
+<div class="movietitle">Movie (<i>Year</i>)</div>
+<div>Genre</div>
+Released : <u>Released</u></br>
+Duration : duration </br>
+</section>
+</section>
+<section id="cardadd">
 +
 </section>
 </section>
