@@ -1,6 +1,6 @@
 <?php
 
-$host = 'localhost:3302';
+$host = 'localhost';
 $user = 'root';
 $pass = '';
 $db = 'wootube';
