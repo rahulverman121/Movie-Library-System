@@ -1,0 +1,381 @@
+<?php
+session_start();
+ 
+if(isset($_SESSION["id"])) {
+	header("Location:home.php);
+	}
+else {
+?>
+</doctype html>
+<html>
+<head>
+<title>WooTube | Movie Library | All your favourite movies at one place
+</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script></script>
+<style>
+body {
+	background : black ;
+	background-size : cover ;
+	display : flex ;
+	flex-direction : column ;
+	align-items : center ;
+	justify-content : center ;
+	
+	
+}
+header {
+	z-index : 9;
+	margin-top : 0 ;
+	display : flex ;
+	width : 100% ;
+	height : 8rem ;
+	align-items : center ;
+}
+#logo {
+	display : flex ;
+	text-shadow : 0 0 5rem red ;
+	font-size : 3rem ;
+	color : white ;
+	cursor : pointer ;
+	margin-left : 8% ;
+	left : 3% ;
+	text-decoration : underline solid red ;
+}
+nav {
+	color : white ;
+	position : absolute ;
+	right : 5% ;
+	font-size : 1.6rem ;
+	font-weight : normal ;
+}
+.login {
+	border : 0.1rem solid red ;
+	background : transparent ;
+	padding : 0.8rem 1.2rem;
+	color : red ;
+	font-size : 1.6rem ;
+	margin-left : 1rem ;
+	font-weight : normal ;
+	background : rgba(0,0,0,0.5) ;
+}
+#signupcontainer,#logincontainer {
+	width : 100% ;
+	height : 100% ;
+	position : absolute ;
+	align-items : center ;
+	justify-content : center ;
+	display : flex ;
+	padding : 10% ;
+	background : transparent ;
+	justify-content : center ;
+}
+#signup,#login {
+	align-items : center ;
+	background : rgba(0,0,0,1) ;
+	border : 0.1rem solid  ;
+	width : 70rem ;
+	justify-content : center ;
+	height : 70rem ;
+	border-radius : 1rem ;
+	color : white ;
+	box-shadow : inset 0rem 0rem 4rem #fff ;
+	position : absolute ;
+	padding : 10rem ;
+}
+#login {
+	width : 50rem ;
+	
+}
+#signup>label,#login>label {
+	font-size : 1.8rem ;
+}
+input {
+	font-size : 1.6rem ;
+	background : black ;
+	color : white ;
+}
+main {
+	display : flex ;
+	height : 80% ;
+	flex-direction : column ;
+	align-items : center ;
+	justify-content : center ;
+	width : 100% ;
+	
+}
+#logobig {
+	display : flex ;
+	font-size : 8rem ;
+	color : rgb(255,255,255) ;
+	cursor : pointer ;
+}
+hr,vr {
+	border : 0.1rem solid white ;
+}
+#error {
+	color : red ;
+	font-size : 1.6rem ;
+	text-shadow : 0 0 2rem black ;
+}
+#searchbox { 
+	font-size : 2rem ;
+	padding : 0.8rem ;
+	border-radius : 3rem 0 0 3rem ;
+	width : 50rem ;
+	cursor : pointer ;
+	color : rgb(255,255,255);
+	background : rgba(0,0,0,0.9) ;
+}
+#searchbox:hover {
+	box-shadow : 0 0 0.6rem red ;
+}
+#searchicon {
+	border-left : none ;
+	padding : 0.6rem ;
+	cursor : pointer ; 
+	}
+
+#movie {
+	width : 60% ;
+	background : rgba(0,0,0,0.9) ;
+	color : rgb(255,255,255) ;
+	border-radius : 10rem 10rem 10rem 10rem ;
+	display : flex ;
+	margin-left : 10% ;
+	margin-right : 10% ;
+	border : 1px solid white ;
+	position : absolute ;
+}
+#language {
+	background : rgba(0,0,0,0.8) ;
+	color : white ;
+	position : absolute ;
+	float : right ;
+	padding : 0.6rem 1.2rem;
+	font-size : 1.6rem ;
+	font-weight : bold ;
+	margin-top : 11rem ;
+}
+#poster {
+	background : url(poste.jpg) no-repeat center;
+	background-size : contain;
+	height : 75rem ;
+	border-radius : 10rem 0 0 10rem ;	
+	min-width : 45% ;
+}
+#moviedetail {
+	margin : 3rem 5rem ;
+	font-size : 2rem ;
+}
+#moviedetail span {
+	font-weight : normal ;
+}
+.clk {
+	font-size : 1.6rem ;
+	padding : 0.8rem 1.2rem;
+	border : 0.1rem solid red ;
+	border-radius : 5% /10%;
+	font-weight : 500 ;
+	background:red;
+	margin : 2.5rem ;
+	color : white ;
+}
+.clk:hover {
+	box-shadow : 0 0 2rem red ;
+}
+footer {
+	color : white ;
+	
+	
+}
+</style>
+
+<body>
+
+<header>
+<div id="logo">Woo<div style="color:red;text-decoration : underline solid white;">Tube</div></div>
+<nav>
+<a href="#register" style="color:white" onclick='$("#logincontainer").slideUp(0);$("#signupcontainer").slideToggle();'>Register</a>
+<button class="login" onclick='$("#signupcontainer").slideUp(0);$("#logincontainer").slideToggle()'><img src="redprofile.png" width="25rem">&nbspSIGN IN</button>
+</nav>
+</header>
+
+<section id="signupcontainer">
+<section id="signup">
+<h2 style="color:white">Sign Up</br></br></h2>
+<form method="post" id="signupform">
+<label>Name : </label>
+<input type="text" placeholder="First Name" name="fname" required>
+<input type="text" placeholder="Last Name" name="lname" required></br></br>
+<label>Email : </label>
+<input type="email" placeholder="Email" name="email" required></br></br>
+<label>Username : </label>
+<input type="text" placeholder="Username" name="username" required></br></br>
+<label>Password : </label>
+<input type="password" placeholder="Password" name="password" required></br></br>
+</br><div id="signuperr" style="color:red"></div>
+<hr></hr>
+</br>
+<center><button id="signupbtn" class="clk">Sign Up</button>
+</form>
+</section>
+</section>
+<script>
+$(document).ready(function() {
+	$("#signupbtn").click(function(e) { 
+		event.preventDefault();
+		var formdata=$("#signupform").serialize();
+		formdata = formdata +"&action=signup";
+		$.ajax({
+			type: "post",
+			url: "./register.php/?",
+			data: formdata,
+			success: function(response){
+			console.log(formdata);
+			$("#signuperr").text(response);
+			}
+});	
+});
+});
+</script>
+<section id="logincontainer">
+<section id="login">
+<h2 style="color:white">Login</br></br></h2>
+<form method="post" id="loginform" style="display:flex;flex-direction:column;">
+
+
+<label>Username : </label>
+<input type="text" placeholder="Username" name="username" required id="logusername"></br></br>
+<label style="vertical-align:top">Password : </label>
+<input type="password" placeholder="Password" name="password" required  id="logpassword">
+</br>
+</br>
+</br><div id="loginerr" style="color:red"></div>
+<vr></vr></br>
+<center>
+<button id="loginbtn" class="clk">LogIn</button></center>
+</form>
+</section>
+</section>
+<script>
+$(document).ready(function() {
+	$("#loginbtn").click(function(e) { 
+	
+		event.preventDefault();
+		var formdata=$("#loginform").serialize();
+		formdata = formdata +"&action=login";
+		$.ajax({
+			type: "post",
+			url: "login.php/?",
+			data: formdata,
+			success: function(response){
+			console.log(formdata);
+			if(response>0) {
+				$("#loginerr").text(response);
+				window.location ="home.php";
+			}
+			else {
+				$("#loginerr").text(response);
+			}
+		}
+});	
+});
+});
+</script>
+<main>
+<section id="logobig">Woo<div style="color:red;">Tube</div></section>
+</br>
+<script>
+$("#logo,#logobig").click(function() {
+	window.location="index.html";
+});
+</script>
+<span id="error"></span>
+<form method="get" id="searchform">
+<input type="search" id="searchbox" placeholder="Search.." name="t">
+<img src="srchicon.png" alt="Search your Favourite Movies" id="searchicon">
+</form>
+
+</br>
+<section id="searchbutton">
+<button class="clk" id="searchmovie">Search Movie</button>
+<button class="clk">I'm  Feeling Lucky</button>
+</section>
+</section>
+<section id="movie">
+<section id="poster">
+<div id="language">Language</div>
+</section>
+<section id="moviedetail">
+<section style="height:80%">
+<label><label>
+<div id="title" style="font-size:4rem;">Drama</div>
+<span id="year">Year</span>&nbsp || &nbsp 
+<span id="genre">Genre</span>
+</br></br>
+<label>Writer : &nbsp</label><span id="writer">writer</span></br>
+<label>Director : &nbsp</label><span id="director">director</span></br>
+<label>Actors / Actress : &nbsp</label><span id="actors">actors</span></br>
+<label>Released : &nbsp</label><span id="released" style="color:blue;text-decoration:underline">Release Date</span></br>
+<label>Duration : &nbsp</label><span id="runtime">Runtime</span></br></br>
+<label>Plot : &nbsp</label><span id="plot">Plot</span>
+</br></br>
+</section>
+<center ><button class="clk" style="margin-top:2rem;" onclick="alert('Login or SignUp to add it to your Playlist.');$('#movie').slideToggle();">Add to Playlist<sup>+</sup</button></center>
+</section>
+</section>
+</main>
+<script>
+$("#movie,#signupcontainer,#logincontainer").hide(0);
+var movie;
+$(document).ready(function() {
+	$("#searchmovie,#searchicon").click(function(e) { 
+		event.preventDefault();
+		var formdata=$("#searchform").serialize();
+		var formmdata=$("#searchbox").val();
+		$.ajax({
+			type: "get",
+			url: "http://www.omdbapi.com/?apikey=13e16302&",
+			data: formdata,
+			success: function(response){
+				movie = response;
+				console.log(movie);
+				if(movie.Response=='False') {
+					$("#error").text(movie.Error);
+			}
+				else {
+				$("#title").text(movie.Title);
+				$("#year").text(movie.Year);
+				$("#released").text(movie.Released);
+				$("#runtime").text(movie.Runtime);
+				$("#genre").text(movie.Genre);
+				$("#director").text(movie.Director);
+				$("#writer").text(movie.Writer);
+				$("#actors").text(movie.Actors);
+				$("#plot").text(movie.Plot);
+				$("#language").text(movie.Language);
+				$("#error").text(movie.Error);
+				$("#response").text(movie.Response);
+				$("#poster").css("background","url("+movie.Poster+") no-repeat center");
+				$("#movie").slideDown();
+				}
+			}
+});	
+});
+});
+</script>
+
+
+<footer>
+&copy Designed and Developed By RAHUL VERMAN</br>
+<center style="margin-top:1rem">India | 2022 </center>
+</footer>
+</body>
+</html>
+<?php
+}
+?>
